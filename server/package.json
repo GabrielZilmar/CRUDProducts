@@ -1,0 +1,33 @@
+{
+	"name": "crudproducts",
+	"version": "1.0.0",
+	"description": "A project made in node and React.js for study more about knex, JWT, TDD, some react's tools, deploy with heroku and good practices.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "babel-node ./src/index.js",
+		"dev": "nodemon --exec babel-node ./src/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GabrielZilmar/CRUDProducts.git"
+	},
+	"author": "Gabriel Zilmar",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/GabrielZilmar/CRUDProducts/issues"
+	},
+	"homepage": "https://github.com/GabrielZilmar/CRUDProducts#readme",
+	"dependencies": {
+		"@babel/core": "^7.11.6",
+		"@babel/node": "^7.10.5",
+		"@babel/plugin-proposal-class-properties": "^7.10.4",
+		"@babel/preset-env": "^7.11.5",
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"knex": "^0.21.6"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.4"
+	}
+}
