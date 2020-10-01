@@ -39,5 +39,14 @@ export const validUuid = (uuid) => {
 };
 
 export const encryptPassword = (password) => {
-	const cipher = crypto.createCipheriv();
+	const encrypt = {
+		algorithm: process.env.ENCRYPT,
+		key: process.env.ENCRYPT_KEY,
+		type: process.env.ENCRYPT_TYPE,
+	};
+
+	const cipher = crypto.createCipher(encrypt.algorithm, encrypt.key);
+	cipher.update(password);
+
+	return cipher.final(encrypt.type);
 };

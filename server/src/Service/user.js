@@ -1,6 +1,6 @@
 import UserRepository from "../Repository/user";
 
-import { validEmail } from "../utils.js";
+import { validEmail, encryptPassword } from "../utils.js";
 
 const service = {
 	store: async (req, res) => {
@@ -26,7 +26,7 @@ const service = {
 			id: req.id,
 			name: req.name,
 			email: req.email,
-			password: req.password,
+			password: encryptPassword(req.password),
 		};
 
 		await UserRepository.store(ong, res);
