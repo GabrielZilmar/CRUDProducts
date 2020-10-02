@@ -17,6 +17,9 @@ const service = {
 		if (!req.password) {
 			errors.push("The password is mandatory.");
 		}
+		if (req.admin !== true && req.admin !== false) {
+			errors.push("Admin need to be a boolean.");
+		}
 
 		if (errors.length > 0) {
 			return {
@@ -28,6 +31,7 @@ const service = {
 			id: req.id,
 			name: req.name,
 			email: req.email,
+			admin: req.admin,
 			password: encryptPassword(req.password),
 		};
 

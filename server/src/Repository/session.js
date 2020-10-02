@@ -6,7 +6,7 @@ dotenv.config();
 const repository = {
 	store: async (email, password, res) => {
 		const session = await connection("users")
-			.select("id", "name", "email")
+			.select("id", "name", "email", "admin")
 			.where({
 				email: email,
 				password: password,

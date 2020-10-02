@@ -8,6 +8,7 @@ const controller = {
 			id: generateUuid(),
 			name: req.body.name,
 			email: req.body.email,
+			admin: req.body.admin ? req.body.admin : false,
 			password: req.body.password,
 		};
 

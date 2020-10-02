@@ -15,7 +15,7 @@ const repository = {
 
 	show: async (id, res) => {
 		return await connection("users")
-			.select("id", "name", "email")
+			.select("id", "name", "email", "admin")
 			.where("id", id)
 			.first()
 			.catch((err) => {
