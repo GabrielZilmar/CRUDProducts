@@ -1,6 +1,6 @@
 import UserRepository from "../Repository/user";
 
-import { encryptPassword, validEmail, validUuid } from "../utils.js";
+import { encryptPassword, validEmail } from "../utils.js";
 
 import jwt from "../jwt.js";
 
@@ -47,6 +47,22 @@ const service = {
 		return user;
 	},
 
+	delete: async (req, res) => {
+		const token = jwt.decodeToken(req);
+
+		if (!token.auth) {
+			return {
+				Errors: ["You don't have access to this area. Invalid token."],
+			};
+		}
+
+		const deleted = await UserRepository.delete(token.id, res);
+
+		return deleted === 1
+			? { Message: "Successful." }
+			: { Message: "User not found." };
+	},
+
 	show: async (req, res) => {
 		let errors = [];
 		let auth;
@@ -68,19 +84,6 @@ const service = {
 
 		const user = await UserRepository.show(auth.id, res);
 		return user ? user : {};
-	},
-
-	delete: async (req, res) => {
-		const token = jwt.decodeToken(req);
-
-		if (!token.auth) {
-			return {
-				Errors: ["You don't have access to this area."],
-			};
-		}
-
-		const deleted = await UserRepository.delete(token.id, res);
-		return deleted;
 	},
 
 	list: async (req, res) => {

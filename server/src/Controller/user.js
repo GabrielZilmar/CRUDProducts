@@ -28,9 +28,9 @@ const controller = {
 			res
 		);
 
-		return user.Errors
-			? res.status(400).json(user)
-			: res.status(200).json(user);
+		return deleted.Errors
+			? res.status(400).json(deleted)
+			: res.status(200).json(deleted);
 	},
 
 	show: async (req, res) => {

@@ -13,6 +13,15 @@ const repository = {
 			});
 	},
 
+	delete: async (id, res) => {
+		return await connection("users")
+			.where("id", id)
+			.delete()
+			.catch((err) => {
+				return res.status(500).json(err);
+			});
+	},
+
 	show: async (id, res) => {
 		return await connection("users")
 			.select("id", "name", "email", "admin")
