@@ -22,6 +22,14 @@ const repository = {
 				return res.status(500).json(err);
 			});
 	},
+
+	list: async (res) => {
+		return await connection("users")
+			.select("id", "name", "email", "admin")
+			.catch((err) => {
+				return res.status(500).json(err);
+			});
+	},
 };
 
 export default repository;

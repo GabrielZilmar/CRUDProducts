@@ -26,6 +26,14 @@ const controller = {
 			? res.status(400).json(user)
 			: res.status(200).json(user);
 	},
+
+	list: async (req, res) => {
+		const users = await UserService.list(req.headers.authorization, res);
+
+		return users.Errors
+			? res.status(400).json(users)
+			: res.status(200).json(users);
+	},
 };
 
 export default controller;

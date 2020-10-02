@@ -47,7 +47,7 @@ const service = {
 		if (!req.headers.authorization) {
 			errors.push("You don't have access to this area.");
 		} else {
-			auth = jwt.isAuth(req.headers.authorization);
+			auth = jwt.decodeToken(req.headers.authorization);
 			if (!auth.auth || !auth.id) {
 				errors.push("You don't have access to this area.");
 			}
@@ -61,6 +61,19 @@ const service = {
 
 		const user = await UserRepository.show(auth.id, res);
 		return user ? user : {};
+	},
+
+	list: async (req, res) => {
+		const token = jwt.decodeToken(req);
+
+		if (!token.admin) {
+			return {
+				Errors: ["You don't have access to this area."],
+			};
+		}
+
+		const users = await UserRepository.list(res);
+		return users;
 	},
 };
 

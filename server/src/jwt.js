@@ -13,7 +13,7 @@ export default {
 		return { auth: true, token: token };
 	},
 
-	isAuth: (token) => {
+	decodeToken: (token) => {
 		const auth = jwt.verify(token, process.env.JWT_KEY, (err, decode) => {
 			if (err) {
 				return {
