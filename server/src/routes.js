@@ -9,7 +9,7 @@ const routes = express.Router();
  * User routes
  */
 routes.post("/user", UserController.store);
-routes.get("/user/:id", UserController.show);
+routes.get("/user", UserController.show);
 
 /**
  * Session routes

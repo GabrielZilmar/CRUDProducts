@@ -26,7 +26,7 @@ const service = {
 		);
 
 		if (user) {
-			const token = jwt.createAuth(req.id);
+			const token = jwt.createAuth(user.id);
 			return { User: user, Token: token };
 		} else {
 			return {

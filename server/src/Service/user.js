@@ -38,14 +38,13 @@ const service = {
 
 	show: async (req, res) => {
 		let errors = [];
-		if (!req.params.id || !validUuid(req.params.id)) {
-			errors.push("The param id is mandatory, insert a valid UUID.");
-		}
+		let auth;
+
 		if (!req.headers.authorization) {
 			errors.push("You don't have access to this area.");
 		} else {
-			const auth = jwt.isAuth(req.headers.authorization);
-			if (!auth.auth) {
+			auth = jwt.isAuth(req.headers.authorization);
+			if (!auth.auth || !auth.id) {
 				errors.push("You don't have access to this area.");
 			}
 		}
@@ -56,7 +55,7 @@ const service = {
 			};
 		}
 
-		const user = await UserRepository.show(req.params.id, res);
+		const user = await UserRepository.show(auth.id, res);
 		return user ? user : {};
 	},
 };
