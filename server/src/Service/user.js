@@ -5,7 +5,7 @@ import { encryptPassword, validEmail, validUuid } from "../utils.js";
 import jwt from "../jwt.js";
 
 const service = {
-	store: async (req, res) => {
+	store: async (req, token, res) => {
 		let errors = [];
 
 		if (!req.name) {
@@ -19,6 +19,13 @@ const service = {
 		}
 		if (req.admin !== true && req.admin !== false) {
 			errors.push("Admin need to be a boolean.");
+		}
+		if (req.admin) {
+			const decodeToken = jwt.decodeToken(token);
+
+			if (!decodeToken.auth || !decodeToken.admin) {
+				errors.push("You need to be an admin to create an admin user.");
+			}
 		}
 
 		if (errors.length > 0) {
@@ -63,10 +70,23 @@ const service = {
 		return user ? user : {};
 	},
 
+	delete: async (req, res) => {
+		const token = jwt.decodeToken(req);
+
+		if (!token.auth) {
+			return {
+				Errors: ["You don't have access to this area."],
+			};
+		}
+
+		const deleted = await UserRepository.delete(token.id, res);
+		return deleted;
+	},
+
 	list: async (req, res) => {
 		const token = jwt.decodeToken(req);
 
-		if (!token.admin) {
+		if (!token.admin || !token.auth) {
 			return {
 				Errors: ["You don't have access to this area."],
 			};
@@ -79,7 +99,7 @@ const service = {
 	listAdmin: async (req, res) => {
 		const token = jwt.decodeToken(req);
 
-		if (!token.admin) {
+		if (!token.admin || !token.auth) {
 			return {
 				Errors: ["You don't have access to this area."],
 			};
@@ -92,7 +112,7 @@ const service = {
 	listNoAdmin: async (req, res) => {
 		const token = jwt.decodeToken(req);
 
-		if (!token.admin) {
+		if (!token.admin || !token.auth) {
 			return {
 				Errors: ["You don't have access to this area."],
 			};

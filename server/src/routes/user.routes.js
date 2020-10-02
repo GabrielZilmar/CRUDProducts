@@ -5,6 +5,7 @@ import UserController from "../Controller/user";
 const routes = express.Router();
 
 routes.post("/user", UserController.store);
+routes.delete("/user", UserController.delete);
 routes.get("/user", UserController.show);
 routes.get("/users", UserController.list);
 routes.get("/users/admin", UserController.listAdmin);
