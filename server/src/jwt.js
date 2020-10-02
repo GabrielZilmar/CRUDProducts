@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 
 export default {
 	createAuth: (id, admin) => {
-		console.log(admin);
 		const token = jwt.sign({ id: id, admin: admin }, process.env.JWT_KEY, {
 			expiresIn: 600,
 		});
