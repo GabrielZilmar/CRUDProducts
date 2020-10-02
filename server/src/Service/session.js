@@ -1,18 +1,14 @@
-import UserRepository from "../Repository/user";
+import SessionRepository from "../Repository/session";
 
 import { encryptPassword, validEmail } from "../utils.js";
 
 const service = {
 	store: async (req, res) => {
 		let errors = [];
-
-		if (!req.name) {
-			errors.push("The name is mandatory.");
-		}
-		if (!validEmail(req.email)) {
+		if (!req.body.email && !validEmail(req.body.email)) {
 			errors.push("The email is mandatory, insert a valid e-mail.");
 		}
-		if (!req.password) {
+		if (!req.body.password) {
 			errors.push("The password is mandatory.");
 		}
 
@@ -22,16 +18,13 @@ const service = {
 			};
 		}
 
-		const user = {
-			id: req.id,
-			name: req.name,
-			email: req.email,
-			password: encryptPassword(req.password),
-		};
+		const user = await SessionRepository.store(
+			req.body.email,
+			encryptPassword(req.body.password),
+			res
+		);
 
-		await UserRepository.store(user, res);
-
-		return user;
+		return user ? user : { Failed: "Invalid e-mail or password." };
 	},
 };
 
