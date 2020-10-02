@@ -34,6 +34,28 @@ const controller = {
 			? res.status(400).json(users)
 			: res.status(200).json(users);
 	},
+
+	listAdmin: async (req, res) => {
+		const users = await UserService.listAdmin(
+			req.headers.authorization,
+			res
+		);
+
+		return users.Errors
+			? res.status(400).json(users)
+			: res.status(200).json(users);
+	},
+
+	listNoAdmin: async (req, res) => {
+		const users = await UserService.listNoAdmin(
+			req.headers.authorization,
+			res
+		);
+
+		return users.Errors
+			? res.status(400).json(users)
+			: res.status(200).json(users);
+	},
 };
 
 export default controller;

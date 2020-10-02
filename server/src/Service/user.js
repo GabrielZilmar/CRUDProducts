@@ -75,6 +75,32 @@ const service = {
 		const users = await UserRepository.list(res);
 		return users;
 	},
+
+	listAdmin: async (req, res) => {
+		const token = jwt.decodeToken(req);
+
+		if (!token.admin) {
+			return {
+				Errors: ["You don't have access to this area."],
+			};
+		}
+
+		const users = await UserRepository.listAdmin(res);
+		return users;
+	},
+
+	listNoAdmin: async (req, res) => {
+		const token = jwt.decodeToken(req);
+
+		if (!token.admin) {
+			return {
+				Errors: ["You don't have access to this area."],
+			};
+		}
+
+		const users = await UserRepository.listNoAdmin(res);
+		return users;
+	},
 };
 
 export default service;

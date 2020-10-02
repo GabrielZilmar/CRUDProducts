@@ -30,6 +30,24 @@ const repository = {
 				return res.status(500).json(err);
 			});
 	},
+
+	listAdmin: async (res) => {
+		return await connection("users")
+			.select("id", "name", "email", "admin")
+			.where({ admin: true })
+			.catch((err) => {
+				return res.status(500).json(err);
+			});
+	},
+
+	listNoAdmin: async (res) => {
+		return await connection("users")
+			.select("id", "name", "email", "admin")
+			.where({ admin: false })
+			.catch((err) => {
+				return res.status(500).json(err);
+			});
+	},
 };
 
 export default repository;
