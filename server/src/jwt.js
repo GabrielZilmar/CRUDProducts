@@ -1,10 +1,14 @@
 import jwt from "jsonwebtoken";
 
 export default {
-	createAuth: (id, admin) => {
-		const token = jwt.sign({ id: id, admin: admin }, process.env.JWT_KEY, {
-			expiresIn: 600,
-		});
+	createAuth: (id, email, name, admin) => {
+		const token = jwt.sign(
+			{ id, admin, email, name },
+			process.env.JWT_KEY,
+			{
+				expiresIn: 600,
+			}
+		);
 
 		return { auth: true, token: token };
 	},
@@ -21,6 +25,8 @@ export default {
 					auth: true,
 					token: token,
 					id: decode.id,
+					name: decode.name,
+					email: decode.email,
 					admin: decode.admin,
 					iat: decode.iat,
 					exp: decode.exp,
