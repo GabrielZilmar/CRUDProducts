@@ -1,5 +1,6 @@
 import SessionRepository from "../Repository/session";
 
+import jwt from "../jwt.js";
 import { encryptPassword, validEmail } from "../utils.js";
 
 const service = {
@@ -24,7 +25,15 @@ const service = {
 			res
 		);
 
-		return user ? user : { Failed: "Invalid e-mail or password." };
+		if (user) {
+			const token = jwt.createAuth(req.id);
+			return { User: user, Token: token };
+		} else {
+			return {
+				Failed: "Invalid e-mail or password.",
+				Token: { auth: false, token: null },
+			};
+		}
 	},
 };
 

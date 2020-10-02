@@ -1,5 +1,8 @@
 import connection from "../database/connection.js";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 const repository = {
 	store: async (email, password, res) => {
 		const session = await connection("users")
