@@ -10,11 +10,22 @@ export default {
 	},
 
 	isAuth: (token) => {
-		const auth = jwt.verify(token, process.env.JWT_KEY);
-		console.log(auth);
-	},
+		const auth = jwt.verify(token, process.env.JWT_KEY, (err, decode) => {
+			if (err) {
+				return {
+					auth: false,
+					token: null,
+				};
+			} else {
+				return {
+					auth: true,
+					token: token,
+					iat: decode.iat,
+					exp: decode.exp,
+				};
+			}
+		});
 
-	test: () => {
-		console.log("Teste");
+		return auth;
 	},
 };

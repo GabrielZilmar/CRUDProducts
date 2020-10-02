@@ -1,6 +1,8 @@
 import UserRepository from "../Repository/user";
 
-import { encryptPassword, validEmail } from "../utils.js";
+import { encryptPassword, validEmail, validUuid } from "../utils.js";
+
+import jwt from "../jwt.js";
 
 const service = {
 	store: async (req, res) => {
@@ -32,6 +34,30 @@ const service = {
 		await UserRepository.store(user, res);
 
 		return user;
+	},
+
+	show: async (req, res) => {
+		let errors = [];
+		if (!req.params.id || !validUuid(req.params.id)) {
+			errors.push("The param id is mandatory, insert a valid UUID.");
+		}
+		if (!req.headers.authorization) {
+			errors.push("You don't have access to this area.");
+		} else {
+			const auth = jwt.isAuth(req.headers.authorization);
+			if (!auth.auth) {
+				errors.push("You don't have access to this area.");
+			}
+		}
+
+		if (errors.length > 0) {
+			return {
+				Errors: errors,
+			};
+		}
+
+		const user = await UserRepository.show(req.params.id, res);
+		return user ? user : {};
 	},
 };
 
