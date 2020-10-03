@@ -1,6 +1,6 @@
 import UserRepository from "../Repository/user";
 
-import { encryptPassword, validEmail } from "../utils.js";
+import { encryptPassword, validEmail, validUuid } from "../utils.js";
 
 import jwt from "../jwt.js";
 
@@ -57,6 +57,33 @@ const service = {
 		}
 
 		const deleted = await UserRepository.delete(token.id, res);
+
+		return deleted === 1
+			? { Message: "Successful." }
+			: { Message: "User not found." };
+	},
+
+	deleteAdmin: async (req, res) => {
+		let errors = [];
+
+		if (!validUuid(req.params.id)) {
+			errors.push("Invalid uuid.");
+		}
+		const token = jwt.decodeToken(req.headers.authorization);
+		if (!token.auth || !token.admin) {
+			errors.push("You don't have access to this area. Invalid token.");
+		}
+		if (token.id === req.params.id) {
+			errors.push("You can't delete yourself in this route.");
+		}
+
+		if (errors.length > 0) {
+			return {
+				Errors: errors,
+			};
+		}
+
+		const deleted = await UserRepository.delete(req.params.id, res);
 
 		return deleted === 1
 			? { Message: "Successful." }

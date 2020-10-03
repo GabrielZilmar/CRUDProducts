@@ -33,6 +33,14 @@ const controller = {
 			: res.status(200).json(deleted);
 	},
 
+	deleteAdmin: async (req, res) => {
+		const deleted = await UserService.deleteAdmin(req, res);
+
+		return deleted.Errors
+			? res.status(400).json(deleted)
+			: res.status(200).json(deleted);
+	},
+
 	show: async (req, res) => {
 		const user = await UserService.show(req, res);
 
