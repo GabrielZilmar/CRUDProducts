@@ -22,6 +22,15 @@ const repository = {
 			});
 	},
 
+	update: async (req, id, res) => {
+		return await connection("users")
+			.update(req)
+			.where("id", id)
+			.catch((err) => {
+				return res.status(500).json(err);
+			});
+	},
+
 	show: async (id, res) => {
 		return await connection("users")
 			.select("id", "name", "email", "admin")

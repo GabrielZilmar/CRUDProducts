@@ -1,6 +1,6 @@
 import UserService from "../Service/user.js";
 
-import { generateUuid } from "../utils.js";
+import { generateUuid, encryptPassword } from "../utils.js";
 
 const controller = {
 	store: async (req, res) => {
@@ -39,6 +39,30 @@ const controller = {
 		return deleted.Errors
 			? res.status(400).json(deleted)
 			: res.status(200).json(deleted);
+	},
+
+	update: async (req, res) => {
+		const user = {
+			name: req.body.name,
+			email: req.body.email,
+			password: req.body.password
+				? encryptPassword(req.body.password)
+				: undefined,
+			[Symbol.iterator]: function* () {
+				yield this.name;
+				yield this.email;
+				yield this.password;
+			},
+		};
+		const token = req.headers.authorization
+			? req.headers.authorization
+			: "";
+
+		const updatedUser = await UserService.update(user, token, res);
+
+		return updatedUser.Errors
+			? res.status(400).json(updatedUser)
+			: res.status(200).json(updatedUser);
 	},
 
 	show: async (req, res) => {

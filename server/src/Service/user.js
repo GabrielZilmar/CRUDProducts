@@ -90,6 +90,41 @@ const service = {
 			: { Message: "User not found." };
 	},
 
+	update: async (user, token, res) => {
+		let errors = [];
+		const decodeToken = jwt.decodeToken(token);
+
+		if (user.email && !validEmail(user.email)) {
+			errors.push("Insert a valid e-mail.");
+		}
+		if (!decodeToken.auth) {
+			errors.push("Invalid token.");
+		}
+
+		let emptyUsers = 0;
+		let userLength = 0;
+		for (let i of user) {
+			if (!i) {
+				emptyUsers++;
+			}
+			userLength++;
+		}
+
+		if (emptyUsers === userLength) {
+			errors.push("You need at least one field to update the user.");
+		}
+
+		if (errors.length > 0) {
+			return {
+				Errors: errors,
+			};
+		}
+
+		await UserRepository.update(user, decodeToken.id, res);
+
+		return await UserRepository.show(decodeToken.id, res);
+	},
+
 	show: async (req, res) => {
 		let errors = [];
 		let auth;
