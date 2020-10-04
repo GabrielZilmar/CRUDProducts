@@ -122,7 +122,18 @@ const service = {
 
 		await UserRepository.update(user, decodeToken.id, res);
 
-		return await UserRepository.show(decodeToken.id, res);
+		const newUser = await UserRepository.show(decodeToken.id, res);
+		const newToken = jwt.createAuth(
+			newUser.id,
+			newUser.email,
+			newUser.name,
+			newUser.admin
+		);
+
+		return {
+			User: newUser,
+			Toker: newToken,
+		};
 	},
 
 	show: async (req, res) => {

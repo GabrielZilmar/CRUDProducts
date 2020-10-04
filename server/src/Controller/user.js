@@ -65,6 +65,26 @@ const controller = {
 			: res.status(200).json(updatedUser);
 	},
 
+	setAdmin: async (req, res) => {
+		const user = {
+			name: req.body.name,
+			email: req.body.email,
+			password: req.body.password
+				? encryptPassword(req.body.password)
+				: undefined,
+			admin: req.body.admin,
+			[Symbol.iterator]: function* () {
+				yield this.name;
+				yield this.email;
+				yield this.password;
+				yield this.admin;
+			},
+		};
+		const token = req.headers.authorization
+			? req.headers.authorization
+			: "";
+	},
+
 	show: async (req, res) => {
 		const user = await UserService.show(req, res);
 
