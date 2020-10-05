@@ -136,6 +136,56 @@ const service = {
 		};
 	},
 
+	setAdmin: async (user, token, res) => {
+		let errors = [];
+		const decodeToken = jwt.decodeToken(token);
+
+		if (user.email && !validEmail(user.email)) {
+			errors.push("Insert a valid e-mail.");
+		}
+		if (!decodeToken.auth && !decodeToken.admin) {
+			errors.push("Invalid token.");
+		}
+
+		const numAdmins = await UserRepository.countAdmins(res);
+		if (numAdmins <= 1) {
+		}
+		//Setar e "desetar" alguém como admin e mudar dados de outros usuarios
+		let emptyUsers = 0;
+		let userLength = 0;
+		for (let i of user) {
+			if (!i) {
+				emptyUsers++;
+			}
+			userLength++;
+		}
+
+		if (emptyUsers === userLength) {
+			errors.push("You need at least one field to update the user.");
+		}
+
+		if (errors.length > 0) {
+			return {
+				Errors: errors,
+			};
+		}
+
+		await UserRepository.update(user, decodeToken.id, res);
+
+		const newUser = await UserRepository.show(decodeToken.id, res);
+		const newToken = jwt.createAuth(
+			newUser.id,
+			newUser.email,
+			newUser.name,
+			newUser.admin
+		);
+
+		return {
+			User: newUser,
+			Toker: newToken,
+		};
+	},
+
 	show: async (req, res) => {
 		let errors = [];
 		let auth;

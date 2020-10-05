@@ -66,6 +66,15 @@ const repository = {
 				return res.status(500).json(err);
 			});
 	},
+
+	countAdmins: async (res) => {
+		return await connection("users")
+			.count("id")
+			.where({ admin: true })
+			.catch((err) => {
+				return res.status(500).json(err);
+			});
+	},
 };
 
 export default repository;

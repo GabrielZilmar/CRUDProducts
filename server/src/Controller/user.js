@@ -83,6 +83,12 @@ const controller = {
 		const token = req.headers.authorization
 			? req.headers.authorization
 			: "";
+
+		const updatedUser = await UserService.setAdmin(user, token, res);
+
+		return updatedUser.Errors
+			? res.status(400).json(updatedUser)
+			: res.status(200).json(updatedUser);
 	},
 
 	show: async (req, res) => {
