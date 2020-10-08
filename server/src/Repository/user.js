@@ -23,11 +23,15 @@ const repository = {
 	},
 
 	update: async (req, id, res) => {
-		return await connection("users")
+		await connection("users")
 			.update(req)
 			.where("id", id)
 			.catch((err) => {
-				return res.status(500).json(err);
+				return err.constraint.includes("email_unique")
+					? res.status(400).json({
+							Errors: ["The E-mail need to be unique."],
+					  })
+					: res.status(501).json(err);
 			});
 	},
 
@@ -68,12 +72,14 @@ const repository = {
 	},
 
 	countAdmins: async (res) => {
-		return await connection("users")
+		const numAdmins = await connection("users")
 			.count("id")
 			.where({ admin: true })
 			.catch((err) => {
 				return res.status(500).json(err);
 			});
+
+		return numAdmins[0].count;
 	},
 };
 

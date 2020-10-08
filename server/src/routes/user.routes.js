@@ -8,7 +8,7 @@ routes.post("/user", UserController.store);
 routes.delete("/user", UserController.delete);
 routes.delete("/user/:id", UserController.deleteAdmin);
 routes.put("/user", UserController.update);
-routes.put("/user/set-admin", UserController.setAdmin);
+routes.put("/user/update-admin/:id", UserController.updateAdmin);
 routes.get("/user", UserController.show);
 routes.get("/users", UserController.list);
 routes.get("/users/admin", UserController.listAdmin);

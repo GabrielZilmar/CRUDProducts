@@ -65,14 +65,14 @@ const controller = {
 			: res.status(200).json(updatedUser);
 	},
 
-	setAdmin: async (req, res) => {
+	updateAdmin: async (req, res) => {
 		const user = {
 			name: req.body.name,
 			email: req.body.email,
 			password: req.body.password
 				? encryptPassword(req.body.password)
 				: undefined,
-			admin: req.body.admin,
+			admin: req.body.admin ? req.body.admin : false,
 			[Symbol.iterator]: function* () {
 				yield this.name;
 				yield this.email;
@@ -84,7 +84,12 @@ const controller = {
 			? req.headers.authorization
 			: "";
 
-		const updatedUser = await UserService.setAdmin(user, token, res);
+		const updatedUser = await UserService.setAdmin(
+			user,
+			req.params.id,
+			token,
+			res
+		);
 
 		return updatedUser.Errors
 			? res.status(400).json(updatedUser)

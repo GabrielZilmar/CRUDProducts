@@ -136,21 +136,20 @@ const service = {
 		};
 	},
 
-	setAdmin: async (user, token, res) => {
+	setAdmin: async (user, id, token, res) => {
 		let errors = [];
 		const decodeToken = jwt.decodeToken(token);
 
 		if (user.email && !validEmail(user.email)) {
 			errors.push("Insert a valid e-mail.");
 		}
-		if (!decodeToken.auth && !decodeToken.admin) {
+		if (!decodeToken.auth) {
 			errors.push("Invalid token.");
 		}
-
-		const numAdmins = await UserRepository.countAdmins(res);
-		if (numAdmins <= 1) {
+		if (!decodeToken.admin) {
+			errors.push("You don't have access to this area. Invalid token.");
 		}
-		//Setar e "desetar" alguém como admin e mudar dados de outros usuarios
+
 		let emptyUsers = 0;
 		let userLength = 0;
 		for (let i of user) {
@@ -160,7 +159,7 @@ const service = {
 			userLength++;
 		}
 
-		if (emptyUsers === userLength) {
+		if (emptyUsers === userLength && user.admin) {
 			errors.push("You need at least one field to update the user.");
 		}
 
@@ -170,9 +169,14 @@ const service = {
 			};
 		}
 
-		await UserRepository.update(user, decodeToken.id, res);
+		const numAdmins = await UserRepository.countAdmins(res);
+		if (numAdmins <= 1 && !user.admin && id === decodeToken.id) {
+			return { Errors: ["You must have at least one admin."] };
+		}
 
-		const newUser = await UserRepository.show(decodeToken.id, res);
+		await UserRepository.update(user, id, res);
+
+		const newUser = await UserRepository.show(id, res);
 		const newToken = jwt.createAuth(
 			newUser.id,
 			newUser.email,
