@@ -1,10 +1,12 @@
 import React from "react";
-import "./App.css";
+import GlobalStyles from "./styles/global"
+import Landing from "./pages/Landing";
 
 function App() {
 	return (
 		<div className="App">
-			<header className="App-header"></header>
+			<GlobalStyles />
+			<Landing></Landing>
 		</div>
 	);
 }
