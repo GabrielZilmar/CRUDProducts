@@ -1,24 +1,31 @@
-import React from 'react'
-import { HeaderWrapper, Logo, Link, LinkWrapper } from './styles';
+import React from 'react';
 
-const Header = () =>{
-    return (
-        <HeaderWrapper>
-            <Logo>
-                CRUD
-            </Logo>
+import {
 
-            <LinkWrapper>
-                <Link href="">
-                    Login
-                </Link>
+	HeaderWrapper, Logo, Link, LinkWrapper,
 
-                <Link href="">
-                    Sign In
-                </Link>
-            </LinkWrapper>
-        </HeaderWrapper>
-    )
-}
+} from './styles';
+
+const Header = () => (
+
+  	<HeaderWrapper>
+		<Logo>
+      CRUD
+		</Logo>
+
+    <LinkWrapper>
+  <Link href="">
+  Login
+			</Link>
+
+  <Link href="">
+  Sign In
+			</Link>
+
+		</LinkWrapper>
+
+	</HeaderWrapper>
+
+);
 
 export default Header;

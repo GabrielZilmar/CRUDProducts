@@ -1,14 +1,14 @@
-import React from "react";
-import GlobalStyles from "./styles/global"
-import Landing from "./pages/Landing";
+import React from 'react';
+import GlobalStyles from './styles/global';
+import Landing from './pages/Landing';
 
 function App() {
-	return (
-		<div className="App">
-			<GlobalStyles />
-			<Landing></Landing>
-		</div>
-	);
+  return (
+    <div className="App">
+      <GlobalStyles />
+      <Landing />
+    </div>
+  );
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HeaderWrapper = styled.header`
     height: 100px;
@@ -8,13 +8,13 @@ export const HeaderWrapper = styled.header`
     align-items: center;
     padding: 0 30px;
     background: rgba(0,0,0,0.1);
-`
+`;
 
 export const Logo = styled.div`
     font-size: 2rem;
     font-family: sans-serif;
     letter-spacing: 2px;
-`
+`;
 
 export const Link = styled.a`
     padding: 0 10px;
@@ -35,7 +35,7 @@ export const Link = styled.a`
         transform: scaleX(1.5);
     }
 
-`
+`;
 export const LinkWrapper = styled.div`
     display: flex;
-`
+`;
