@@ -3,8 +3,8 @@ exports.up = function (knex) {
 		table.uuid("id").primary();
 		table.string("name").notNullable();
 		table.string("email").notNullable().unique();
-		table.string("password").defaultTo(false).notNullable();
-		table.boolean("admin").notNullable();
+		table.string("password").notNullable();
+		table.boolean("admin").defaultTo(false).notNullable();
 	});
 };
 
