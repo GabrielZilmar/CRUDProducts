@@ -2,29 +2,26 @@ import React from 'react';
 
 import {
 
-	HeaderWrapper, Logo, Link, LinkWrapper,
+  HeaderWrapper, Logo, Link, LinkWrapper,
 
 } from './styles';
 
 const Header = () => (
 
-  	<HeaderWrapper>
-		<Logo>
+  <HeaderWrapper>
+    <Logo>
       CRUD
-		</Logo>
-
+    </Logo>
     <LinkWrapper>
-  <Link href="">
-  Login
-			</Link>
+      <Link href="sign-in">
+        Login
+      </Link>
 
-  <Link href="">
-  Sign In
-			</Link>
-
-		</LinkWrapper>
-
-	</HeaderWrapper>
+      <Link href="sign-in">
+        Sign In
+      </Link>
+    </LinkWrapper>
+  </HeaderWrapper>
 
 );
 
