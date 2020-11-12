@@ -1,9 +1,7 @@
 import React from 'react';
 
 import {
-
   HeaderWrapper, Logo, Link, LinkWrapper,
-
 } from './styles';
 
 const Header = () => (
@@ -13,7 +11,7 @@ const Header = () => (
       CRUD
     </Logo>
     <LinkWrapper>
-      <Link href="sign-in">
+      <Link href="login">
         Login
       </Link>
 
