@@ -28,11 +28,11 @@ export const Ad = styled.div`
     }
 
     >p {
-        color: red;
         font-size: 20px;
         line-height: 1.3em;
         margin: 0.3%;
         padding: 0.3%;
+        font-family: Gill Sans Extrabold, sans-serif;
     }
 `;
 
