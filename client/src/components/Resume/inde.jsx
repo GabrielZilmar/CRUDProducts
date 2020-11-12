@@ -1,11 +1,22 @@
 import React from 'react';
 
-import { Container, Ad, Info } from './style';
+import {
+  Container,
+  Ad,
+  Info,
+  Figure,
+} from './style';
+
+import ProductImage from '../../assets/product.png';
 
 const Resume = () => (
   <Container>
     <Ad>
-      <p>OIOIOI</p>
+      <Figure src={ProductImage} />
+      <p>This is the description of the product!</p>
+      <p>More informations you can see in more words that will be write in this part.</p>
+      <p>More informations you can see in more words that will be write in this part.</p>
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
     </Ad>
     <Info />
   </Container>
