@@ -8,13 +8,18 @@ export const HeaderWrapper = styled.header`
     align-items: center;
     padding: 0 30px;
     position: fixed;
-    background: rgba(0,0,0,0.1);
+    background: rgba(105, 105, 105);
 `;
 
 export const Logo = styled.div`
     font-size: 2rem;
     font-family: sans-serif;
     letter-spacing: 2px;
+    background: rgba(105, 105, 105);
+    
+    @media only screen and (min-width: 2200px) {
+        font-size: 3em;
+    }
 `;
 
 export const Link = styled.a`
@@ -23,7 +28,12 @@ export const Link = styled.a`
     color: black;
     text-decoration:none;  
     font-size: 1.1rem;
-    
+    background: rgba(105, 105, 105);
+
+    @media only screen and (min-width: 2200px) {
+        font-size: 1.8em;
+    }
+
     &:after {
         display: block;
         content: '';
@@ -39,4 +49,5 @@ export const Link = styled.a`
 `;
 export const LinkWrapper = styled.div`
     display: flex;
+    background: rgba(105, 105, 105);
 `;
