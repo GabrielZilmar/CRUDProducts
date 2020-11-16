@@ -16,7 +16,7 @@ export const Container = styled.div`
 export const Ad = styled.div`
     width: 50%;
     margin: 2%;
-    overflow: auto;
+    overflow: hidden;
     ::-webkit-scrollbar {
         width: 10px;
     }
@@ -36,6 +36,7 @@ export const Ad = styled.div`
         width: 100%;
         height: 50%;
         margin-top: 0 12px 0 0;
+        overflow: auto;
     }
     
     >p {
@@ -73,6 +74,11 @@ export const Ad = styled.div`
         margin-bottom: 1.5em;
         float: left;
     }
+
+    &:hover {
+        overflow: auto;
+    }
+
 `;
 
 export const Info = styled.div`

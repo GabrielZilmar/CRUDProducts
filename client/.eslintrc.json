@@ -18,6 +18,14 @@
 	"plugins": ["react"],
 	"rules": {
 		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-		"linebreak-style": ["error", "windows"]
+		"linebreak-style": ["error", "windows"],
+		"react/jsx-props-no-spreading": [
+			"off",
+			{
+				"html": "ignore",
+				"custom": "ignore",
+				"explicitSpread": "ignore"
+			}
+		]
 	}
 }
